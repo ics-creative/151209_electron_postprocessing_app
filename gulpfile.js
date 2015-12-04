@@ -60,6 +60,7 @@ gulp.task('copy-libs', function () {
 });
 gulp.task('copy-html', function () {
     gulp.src('src/index.html').pipe(gulp.dest('build/'));
+    gulp.src('src/index.js').pipe(gulp.dest('build/'));
 });
 gulp.task('copy-texture', function () {
     gulp.src('src/texture/**/*.+(jpg|jpeg|png)').pipe(gulp.dest('build/texture/'));
