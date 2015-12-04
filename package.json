@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "./node_modules/.bin/electron build",
-    "watch":"gulp watch"
+    "watch": "gulp watch",
+    "debug": "./node_modules/.bin/electron build --debug=5858",
+    "inspector": "./node_modules/.bin/node-inspector"
   },
   "author": "Nozomi Nohara",
   "license": "MIT",
@@ -19,6 +21,7 @@
     "gulp-plumber": "^0.6.6",
     "gulp-typescript": "~2.4.2",
     "gulp-uglify": "^1.1.0",
+    "node-inspector": "^0.12.4",
     "rimraf": "^2.3.2",
     "run-sequence": "^1.0.2",
     "typescript": "~1.4.1"
