@@ -1,49 +1,70 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-    <meta charset="utf-8">
-    <meta name="description" content="three.jsでのピクセルシェーダーデモ">
-    <meta name="author" content="Nozomi Nohara">
-    <meta name="viewport" content="width=device-width" initial-scale="1">
-    <link rel="shortcut icon" href="">
-    <script src="js/three.js"></script>
-    <script src="js/shaders/CopyShader.js"></script>
-    <script src="js/postprocessing/MaskPass.js"></script>
-    <script src="js/postprocessing/RenderPass.js"></script>
-    <script src="js/postprocessing/EffectComposer.js"></script>
-    <script src="js/postprocessing/ShaderPass.js"></script>
-    <script src="js/vue.min.js"></script>
-    <script src="js/main.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="css/main.css" media="all">
-    <link rel="stylesheet" type="text/css" href="css/topcoat-desktop-dark.min.css" media="all">
-    <title>ピクセルシェーダーデモ</title>
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="three.jsでのピクセルシェーダーデモ">
+  <meta name="author" content="Nozomi Nohara">
+  <meta name="viewport" content="width=device-width" initial-scale="1">
+  <link rel="shortcut icon" href="">
+  <script src="js/three.js"></script>
+  <script src="js/shaders/CopyShader.js"></script>
+  <script src="js/postprocessing/MaskPass.js"></script>
+  <script src="js/postprocessing/RenderPass.js"></script>
+  <script src="js/postprocessing/EffectComposer.js"></script>
+  <script src="js/postprocessing/ShaderPass.js"></script>
+  <script src="js/vue.min.js"></script>
+  <script src="js/main.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="css/main.css" media="all">
+  <link rel="stylesheet" type="text/css" href="css/topcoat-desktop-dark.min.css" media="all">
+  <title>ピクセルシェーダーデモ</title>
 </head>
 
 <body>
-    <div id="canvas-wrapper"></div>
-    <div id="myapp">
-        <div id="shader_select_menu">
+  <div id="canvas-wrapper"></div>
+  <div id="myapp">
+    <div id="shader_select_menu">
 
-            <label class="shader_checkbox topcoat-checkbox" v-repeat="shader_change_buttons" v-on="change: _onClick" style="display:block;">
-                <input type="checkbox">
-                <div class="topcoat-checkbox__checkmark"></div>
-                {{name}}
-            </label>
-        </div>
-
+      <label class="shader_checkbox topcoat-checkbox" v-repeat="shader_change_buttons" v-on="change: _onClick" style="display:block;"
+      id='shader-{{id}}'>
+        <input type="checkbox">
+        <div class="topcoat-checkbox__checkmark"></div>
+        {{name}}
+      </label>
     </div>
-    <div id="webgl_no_supported">WebGLをサポートしていません</div>
-    <script>
+
+  </div>
+  <div id="webgl_no_supported">WebGLをサポートしていません</div>
+  <script>
+    function changeShader(id,checked) {
+            document.getElementById('shader-' + id).getElementsByTagName('input')[0].checked = checked;
+            main.changeShader(id,checked);
+        }
+        
         if( Main.canWebGL() ) {
             var main = new Main();
+            
             main.initialize();
+            
+            if( require ) {
+              
+               var electron = require('electron');
+               var ipc = electron.ipcRenderer;
+                ipc.on('changeShader', function (event, arg) {
+                    console.log(arg.id);
+                    changeShader(arg.id,arg.checked);
+                });
+                
+            }
+            
         } else {
             var myapp = document.getElementById('myapp').style.display = 'none';
             document.getElementById('canvas-wrapper').style.display = 'none';
             var nosuported = document.getElementById('webgl_no_supported');
             nosuported.style.display = 'block';
         }
-    </script>
+  </script>
 </body>
+
 </html>

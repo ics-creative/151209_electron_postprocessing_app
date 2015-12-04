@@ -54,6 +54,10 @@ class Main {
         this.startScene();
         this.initMouse();
     }
+    
+    changeShader = () => {
+        
+    }
 
     initVue() {
 
