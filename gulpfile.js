@@ -32,7 +32,7 @@ gulp.task('typescript-compile', function () {
 
     gulp.src(['src/ts/**/*.ts'])
         .pipe(typescript({
-            target: "ES5",
+            target: "ES6",
             removeComments: false,
             sortOutput: true
         }))
