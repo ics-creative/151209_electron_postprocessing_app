@@ -38,32 +38,35 @@
   <div id="webgl_no_supported">WebGLをサポートしていません</div>
   <script>
     function changeShader(id,checked) {
-            document.getElementById('shader-' + id).getElementsByTagName('input')[0].checked = checked;
-            main.changeShader(id,checked);
+        document.getElementById('shader-' + id).getElementsByTagName('input')[0].checked = checked;
+        main.changeShader(id,checked);
+      }
+    
+    if( Main.canWebGL() ) {
+        var main = new Main();
+        main.initialize();
+        var canvas = document.getElementsByTagName("canvas")[0];
+        canvas.width = 1024;
+        canvas.height = 638;
+
+        
+        if( require ) {
+          
+            var electron = require('electron');
+            var ipc = electron.ipcRenderer;
+            ipc.on('changeShader', function (event, arg) {
+                console.log(arg.id);
+                changeShader(arg.id,arg.checked);
+            });
+            
         }
         
-        if( Main.canWebGL() ) {
-            var main = new Main();
-            
-            main.initialize();
-            
-            if( require ) {
-              
-               var electron = require('electron');
-               var ipc = electron.ipcRenderer;
-                ipc.on('changeShader', function (event, arg) {
-                    console.log(arg.id);
-                    changeShader(arg.id,arg.checked);
-                });
-                
-            }
-            
-        } else {
-            var myapp = document.getElementById('myapp').style.display = 'none';
-            document.getElementById('canvas-wrapper').style.display = 'none';
-            var nosuported = document.getElementById('webgl_no_supported');
-            nosuported.style.display = 'block';
-        }
+    } else {
+        var myapp = document.getElementById('myapp').style.display = 'none';
+        document.getElementById('canvas-wrapper').style.display = 'none';
+        var nosuported = document.getElementById('webgl_no_supported');
+        nosuported.style.display = 'block';
+    }
   </script>
 </body>
 

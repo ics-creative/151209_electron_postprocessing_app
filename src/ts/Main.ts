@@ -17,6 +17,11 @@ interface IShaderMap {
     pass:THREE.ShaderPass;
 }
 
+module project{
+    export let IMAGE_WIDTH:number = 1024;
+    export let IMAGE_HEIHGT:number = 638;
+}
+
 class Main {
     static canWebGL() : boolean{
         try {
@@ -48,7 +53,7 @@ class Main {
     private vm:Vue;
 
     private objects:TestObjects;
-
+  
     initialize() {
         this.initVue();
         this.checkSpMode();
@@ -181,9 +186,9 @@ class Main {
 
         //  ThreeeJSの初期化処理
         this.scene = new THREE.Scene();
-        this.camera = new THREE.PerspectiveCamera(77, window.innerWidth / window.innerHeight, 0.1, 1000);
+        this.camera = new THREE.PerspectiveCamera(77, project.IMAGE_WIDTH /project.IMAGE_HEIHGT, 0.1, 1000);
         this.renderer = new THREE.WebGLRenderer({antialias: true});
-        this.renderer.setSize(window.innerWidth,window.innerHeight);
+        this.renderer.setSize(project.IMAGE_WIDTH,project.IMAGE_HEIHGT);
         this.renderer.setPixelRatio(window.devicePixelRatio);
         document.getElementById('canvas-wrapper').appendChild(this.renderer.domElement);
 
@@ -218,19 +223,17 @@ class Main {
     }
 
     addShaders() {
-        var width = window.innerWidth;
-        var height = window.innerHeight;
         this.addEffect("nega", new shader.NegativePositiveShader);
         this.addEffect("sepia_tone", new shader.SepiaToneShader);
-        this.addEffect("mosaic", new shader.MosaicShader(width, height));
-        this.addEffect("diffusion", new shader.DiffusionShader(width, height));
+        this.addEffect("mosaic", new shader.MosaicShader(project.IMAGE_WIDTH, project.IMAGE_HEIHGT));
+        this.addEffect("diffusion", new shader.DiffusionShader(project.IMAGE_WIDTH, project.IMAGE_HEIHGT));
 
-        this.addEffect("uzumaki", this.uzumaki = new shader.UzumakiShader(width, height));
+        this.addEffect("uzumaki", this.uzumaki = new shader.UzumakiShader(project.IMAGE_WIDTH, project.IMAGE_HEIHGT));
         this.uzumaki.uniforms = this.effects["uzumaki"].pass.uniforms;
 
         this.addEffect("threshold", new shader.ThresholdShader);
         this.addEffect("random_dither", new shader.RandomDitherShader);
-        this.addEffect("bayer_dither", new shader.BayerDitherShader(width, height));
+        this.addEffect("bayer_dither", new shader.BayerDitherShader(project.IMAGE_WIDTH, project.IMAGE_HEIHGT));
 
         if (this.spMode) {
             this.uzumaki.setUzumakiScale(75);
