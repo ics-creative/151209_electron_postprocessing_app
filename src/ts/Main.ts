@@ -9,6 +9,7 @@
  */
 interface Window {
     superagent:any;
+    WebGLRenderingContext:any;
 }
 
 interface IShaderMap {
@@ -53,10 +54,6 @@ class Main {
         this.checkSpMode();
         this.startScene();
         this.initMouse();
-    }
-    
-    changeShader = () => {
-        
     }
 
     initVue() {
@@ -186,12 +183,11 @@ class Main {
         this.scene = new THREE.Scene();
         this.camera = new THREE.PerspectiveCamera(77, window.innerWidth / window.innerHeight, 0.1, 1000);
         this.renderer = new THREE.WebGLRenderer({antialias: true});
-        this.renderer.setSize(window.innerWidth, window.innerHeight);
+        this.renderer.setSize(window.innerWidth,window.innerHeight);
         this.renderer.setPixelRatio(window.devicePixelRatio);
         document.getElementById('canvas-wrapper').appendChild(this.renderer.domElement);
 
         this.initObjects();
-
 
         // postprocessing
         this.composer = new THREE.EffectComposer(this.renderer);
