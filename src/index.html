@@ -41,6 +41,37 @@
       document.getElementById('shader-' + id).getElementsByTagName('input')[0].checked = checked;
       main.changeShader(id,checked);
     }
+    
+    function saveImage() {
+      var dialog = electron.remote.require('dialog');
+      
+      dialog.showSaveDialog(
+      electron.remote.getCurrentWindow(),
+      {
+        defaultPath: 'myImage',
+        filters: [
+         {
+           name: 'Images',
+           extensions: ['png']
+         }
+        ]
+      }
+      ,
+      // [ファイル選択]ダイアログが閉じられた後のコールバック関数
+      function (filename) {
+        if (filename) {
+          url = canvas.toDataURL().replace(/^data:image\/png;base64,/, "");
+            
+            var fs = require('fs');
+            fs.writeFile(filename,url,'base64', function (err) {
+                if( err ) {
+                    alert(err);
+                }
+            });
+        }
+      });
+   
+    }
   
     if( Main.canWebGL() ) {
       var main = new Main();
@@ -58,8 +89,10 @@
           changeShader(arg.id,arg.checked);
         });
         
+        ipc.on('save',function (event,arg ) {
+          saveImage();
+        });
       }
-      
     } else {
       var myapp = document.getElementById('myapp').style.display = 'none';
       document.getElementById('canvas-wrapper').style.display = 'none';
