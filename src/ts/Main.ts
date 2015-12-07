@@ -187,7 +187,7 @@ class Main {
         //  ThreeeJSの初期化処理
         this.scene = new THREE.Scene();
         this.camera = new THREE.PerspectiveCamera(77, project.IMAGE_WIDTH /project.IMAGE_HEIHGT, 0.1, 1000);
-        this.renderer = new THREE.WebGLRenderer({antialias: true});
+        this.renderer = new THREE.WebGLRenderer({antialias: true, preserveDrawingBuffer: true});
         this.renderer.setSize(project.IMAGE_WIDTH,project.IMAGE_HEIHGT);
         this.renderer.setPixelRatio(window.devicePixelRatio);
         document.getElementById('canvas-wrapper').appendChild(this.renderer.domElement);
