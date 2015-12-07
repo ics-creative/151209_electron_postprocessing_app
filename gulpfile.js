@@ -76,7 +76,7 @@ gulp.task("reload", function () {
 
 gulp.task("watch", ["reload"], function () {
     gulp.watch(['src/libs/**/*.js'], ['copy-libs']);
-    gulp.watch(['src/index.html'], ['copy-html']);
+    gulp.watch(['src/index.html','src/index.js'], ['copy-html']);
     gulp.watch(['src/texture/**/*.+(jpg|jpeg|png)'], ['copy-texture']);
     gulp.watch(['src/css/*.*'], ['copy-css']);
     gulp.watch(['src/ts/**/*.*'], ['typescript-compile']);
