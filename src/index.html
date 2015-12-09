@@ -60,14 +60,14 @@
       // [ファイル選択]ダイアログが閉じられた後のコールバック関数
       function (filename) {
         if (filename) {
-          url = canvas.toDataURL().replace(/^data:image\/png;base64,/, "");
-            
-            var fs = require('fs');
-            fs.writeFile(filename,url,'base64', function (err) {
-                if( err ) {
-                    alert(err);
-                }
-            });
+          var dataUrl = canvas.toDataURL().replace(/^data:image\/png;base64,/, ""); //data:image/png;base64,の文字列を置換して削除
+          
+          var fs = require('fs');
+          fs.writeFile(filename, dataUrl, 'base64', function (err) {
+              if( err ) {
+                  alert(err);
+              }
+          });
         }
       });
    
@@ -76,8 +76,8 @@
     if( Main.canWebGL() ) {
       var main = new Main();
       main.initialize();
-      
-      var canvas = document.getElementsByTagName("canvas")[0];
+    
+      var canvas = document.getElementsByTagName('canvas')[0]; // ウィンドウ内に存在するCanvas要素の1つめを選択する
       canvas.width = 1024;
       canvas.height = 638;
       
