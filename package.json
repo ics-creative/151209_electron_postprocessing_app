@@ -2,13 +2,14 @@
   "name": "i151204_electron_image_processing",
   "version": "0.1.0",
   "description": "Electronを使用したの画像加工アプリ",
-  "main": " index.js",
+  "main": "build/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "./node_modules/.bin/electron build",
+    "start": "./node_modules/.bin/electron build/index.js",
     "watch": "gulp watch",
-    "debug": "./node_modules/.bin/electron build --debug=5858",
-    "inspector": "./node_modules/.bin/node-inspector"
+    "debug": "./node_modules/.bin/electron build/index.js --debug=5858",
+    "inspector": "./node_modules/.bin/node-inspector",
+    "package:app" : "electron-packager . ImageFilterApp --platform=darwin,win32 --arch=x64 --version=0.35.2 --ignore='(tsd.json|npm-debug.log|src|typings|gulpfile.js|(node_modules\/(electron-packager|electron-prebuilt)))' --overwrite --out='../' --asar=true"
   },
   "author": "Nozomi Nohara",
   "license": "MIT",
