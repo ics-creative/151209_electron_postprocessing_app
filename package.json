@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "./node_modules/.bin/electron build/index.js",
+    "build": "gulp clean-build",
     "watch": "gulp watch",
     "debug": "./node_modules/.bin/electron build/index.js --debug=5858",
     "inspector": "./node_modules/.bin/node-inspector",
