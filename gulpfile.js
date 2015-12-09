@@ -8,11 +8,6 @@ var notify = require('gulp-notify');
 var rimraf = require('rimraf');
 var uglify = require('gulp-uglify');
 
-browserSync({
-    server: {
-        baseDir: "build"
-    }
-});
 gulp.task('build-minify', function () {
     gulp.src(['src/ts/**/*.ts'])
         .pipe(typescript({
@@ -75,6 +70,13 @@ gulp.task("reload", function () {
 });
 
 gulp.task("watch", ["reload"], function () {
+    
+    browserSync({
+        server: {
+            baseDir: "build"
+        }
+    });
+
     gulp.watch(['src/libs/**/*.js'], ['copy-libs']);
     gulp.watch(['src/index.html','src/index.js'], ['copy-html']);
     gulp.watch(['src/texture/**/*.+(jpg|jpeg|png)'], ['copy-texture']);
