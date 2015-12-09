@@ -1,7 +1,7 @@
 {
   "name": "i151204_electron_image_processing",
   "version": "0.1.0",
-  "description": "three.js+シェーダーでpostprocessing",
+  "description": "Electronを使用したの画像加工アプリ",
   "main": " index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

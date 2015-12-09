@@ -1,1 +1,1 @@
-# threejs_postprocessing_demo
+# electron_postprocessing_app
